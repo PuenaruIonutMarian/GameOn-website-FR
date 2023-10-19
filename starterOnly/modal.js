@@ -77,182 +77,196 @@ function closeModal() {
     modalbg.style.display = "none";
 }
 
+
+// Function to create error messages
+function createErrorMessage(input, message) {
+    const formDataDiv = input.closest(".formData");
+    formDataDiv.setAttribute("data-error", message);
+    formDataDiv.setAttribute("data-error-visible", "true");
+}
+
+// Function to clear error messages
+function clearErrorMessage(input) {
+    const formDataDiv = input.closest(".formData");
+    formDataDiv.removeAttribute("data-error");
+    formDataDiv.removeAttribute("data-error-visible");
+}
+
+
 // function to check if the name is valid 
-
 function validateName(event) {
-  const regexName = /^[A-Za-z-]{2,}$/;
-  const input = event.target;
-  const formDataDiv = input.closest(".formData"); 
-  
-  if (input.id === "first"){
-      if (!regexName.test(input.value)) {
-        formDataDiv.setAttribute("data-error", message.fname);
-        formDataDiv.setAttribute("data-error-visible", "true");
+    const regexName = /^[A-Za-z-]{2,}$/;
+    const input = event.target;
 
-      } else {
-        formDataDiv.removeAttribute("data-error");
-        formDataDiv.removeAttribute("data-error-visible");
-      }
+    if (input.id === "first") {
+        if (!regexName.test(input.value)) {
+            createErrorMessage(input, message.fname)
+        } else {
+            clearErrorMessage(input)
+        }
 
-  } else if (input.id === "last") {
-      if (!regexName.test(input.value)) {
-        formDataDiv.setAttribute("data-error", message.lname);
-        formDataDiv.setAttribute("data-error-visible", "true");
-      } else {
-        formDataDiv.removeAttribute("data-error");
-        formDataDiv.removeAttribute("data-error-visible");
-      }
-  }
+    } else if (input.id === "last") {
+        if (!regexName.test(input.value)) {
+            createErrorMessage(input, message.lname)
+        } else {
+            clearErrorMessage(input)
+        }
+    }
 }
 
 
 // function to check if the email adress is valid
 function validateEmail(event) {
-  const regexEmail = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
-  const input = event.target;
-  const formDataDiv = input.closest(".formData"); 
-  
-  if (!regexEmail.test(input.value)) {
-    formDataDiv.setAttribute("data-error", message.email);
-    formDataDiv.setAttribute("data-error-visible", "true");
-
-  } else {
-    formDataDiv.removeAttribute("data-error");
-    formDataDiv.removeAttribute("data-error-visible");
-  }
+    const regexEmail = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+    const input = event.target;
+    if (!regexEmail.test(input.value)) {
+        createErrorMessage(input, message.email);
+    } else {
+        clearErrorMessage(input);
+    }
 }
 
 
 //function to validate the Birthday date
 function validateBirthday(event) {
-  const input = event.target;
-  const formDataDiv = input.closest(".formData");
-  const dateStr = input.value;
+    const input = event.target;
+    const formDataDiv = input.closest(".formData");
+    const dateStr = input.value;
 
-  // Parse the date
-  const date = new Date(dateStr);
-
-  if (isNaN(date.getTime())) {
-    // If the parsed date is invalid, set an error message
-    formDataDiv.setAttribute("data-error", message.birthdate);
-    formDataDiv.setAttribute("data-error-visible", "true");
-
-  } else {
-    // Check additional criteria for a valid birthday (e.g., not in the future)
-    const today = new Date();
-    if (date > today) {
-      formDataDiv.setAttribute("data-error", "La date de naissance ne peut pas être dans le futur.");
-      formDataDiv.setAttribute("data-error-visible", "true");
+    // Parse the date
+    const date = new Date(dateStr);
+    if (isNaN(date.getTime())) {
+        createErrorMessage(input, message.birthdate);
     } else {
-      // The date is valid
-      formDataDiv.removeAttribute("data-error");
-      formDataDiv.removeAttribute("data-error-visible");
+        // Check additional criteria for a valid birthday (e.g., not in the future)
+        const today = new Date();
+        if (date > today) {
+            formDataDiv.setAttribute("data-error", "La date de naissance ne peut pas être dans le futur.");
+            formDataDiv.setAttribute("data-error-visible", "true");
+        } else {
+            clearErrorMessage(input);
+        }
     }
-  }
 }
 
 
 // function to check if the number of participation is valid
 function validateTournaments(event) {
-  const regexQuantity = /^([0-9]{1,})$/;
-  const input = event.target;
-  const formDataDiv = input.closest(".formData"); 
-  
-  if (!regexQuantity.test(input.value)) {
-    formDataDiv.setAttribute("data-error", message.quantity);
-    formDataDiv.setAttribute("data-error-visible", "true");
-  } else {
-    formDataDiv.removeAttribute("data-error");
-    formDataDiv.removeAttribute("data-error-visible");
-  }
+    const regexQuantity = /^([0-9]{1,})$/;
+    const input = event.target;
+    if (!regexQuantity.test(input.value)) {
+        createErrorMessage(input, message.quantity);
+    } else {
+        clearErrorMessage(input);
+    }
 }
 
 
 // Function to validate Locations
 function validateLocations() {
-  const isAnyRadioChecked = [...radioButtons].some((radioButton) => radioButton.checked);
+    const isAnyRadioChecked = [...radioButtons].some((radioButton) => radioButton.checked);
 
-  if (!isAnyRadioChecked) {
-    radioButtons[0].closest(".formData").setAttribute("data-error", message.city);
-    radioButtons[0].closest(".formData").setAttribute("data-error-visible", "true");
-  } else {
-    radioButtons[0].closest(".formData").removeAttribute("data-error");
-    radioButtons[0].closest(".formData").removeAttribute("data-error-visible");
-  }
+    if (!isAnyRadioChecked) {
+        createErrorMessage(radioButtons[0], message.city);
+    } else {
+        clearErrorMessage(radioButtons[0]);
+    }
 }
 
 
 // Function to validate if the conditions checkbox is checked
 function validateConditions(event) {
-  const input = event.target;
-  const formDataDiv = input.closest(".formData");
-
-  if (checkbox1.checked === false) {
-    formDataDiv.setAttribute("data-error", message.conditions);
-    formDataDiv.setAttribute("data-error-visible", "true");
-  } else {
-    formDataDiv.removeAttribute("data-error");
-    formDataDiv.removeAttribute("data-error-visible");
-  }
+    const input = event.target;
+    if (checkbox1.checked === false) {
+        createErrorMessage(input, message.conditions);
+    } else {
+        clearErrorMessage(input);
+    }
 }
 
 
 // Function that checks if the form is valid 
 function validateSubmit(event) {
-  event.preventDefault();
+    event.preventDefault();
 
-  // Validate each form field
-  validateName({ target: firstName });
-  validateName({ target: lastName });
-  validateEmail({ target: email });
-  validateBirthday({ target: birthdate });
-  validateTournaments({ target: quantity });
-  validateLocations();
-  validateConditions({ target: checkbox1 });
-
-  // Check if any errors are still visible
-  let visibleErrors = document.querySelectorAll('[data-error]');
-
-  if (visibleErrors.length === 0) {
-    const formulaire = document.querySelector('form');
-    formulaire.style.display="none";
-    validMessage();
-  }
-}
-
-// function that display the form validation message
-function validMessage() {
-  // Target the modal content container
-    const mainContent = document.querySelector('.content');
-
-  // Creates an paragraph
-  const messageContainer = document.createElement("p");
-  // Ads the message
-  messageContainer.innerText = "Merci pour votre inscription"; 
-  // Apply styles for the message
-  messageContainer.style.fontFamily = "DM Sans";
-  messageContainer.style.fontSize = "30px";
-  messageContainer.style.fontWeight = "400";
-  messageContainer.style.lineHeight = "51px";
-  messageContainer.style.letterSpacing = "0em";
-  messageContainer.style.textAlign = "center";
-  messageContainer.style.margin = "233px 140px 246px 125px";
-  // Appends the message to the container
-  mainContent.appendChild(messageContainer);
-
-
-  // Creates the new Fermer Button
-  const fermerBtn = document.createElement("button");
-  fermerBtn.className = "btn-submit fermer-btn";
-  fermerBtn.innerText = "Fermer";
-  // Center the button
-  fermerBtn.style.display = "block";
-  fermerBtn.style.margin = "0 auto 18px auto";
-  // Appends the button to the container
-  mainContent.appendChild(fermerBtn);
-    // Add a click event listener to the Fermer button
-    fermerBtn.addEventListener("click", function() {
-        closeModal();
+    // Validate each form field
+    validateName({
+        target: firstName
+    });
+    validateName({
+        target: lastName
+    });
+    validateEmail({
+        target: email
+    });
+    validateBirthday({
+        target: birthdate
+    });
+    validateTournaments({
+        target: quantity
+    });
+    validateLocations();
+    validateConditions({
+        target: checkbox1
     });
 
+    // Check if any errors are still visible
+    let visibleErrors = document.querySelectorAll('[data-error]');
+
+    if (visibleErrors.length === 0) {
+        const formulaire = document.querySelector('form');
+        formulaire.style.display = "none";
+        validMessage();
+    }
 }
+
+
+// Function to create a paragraph
+function createMessageParagraph(text) {
+    const paragraph = document.createElement("p");
+    paragraph.style.fontSize = "36px";
+    paragraph.style.fontWeight = "400";
+    paragraph.style.textAlign = "center";
+    paragraph.appendChild(document.createTextNode(text));
+    return paragraph;
+}
+
+
+// Function that displays the form validation message
+function validMessage() {
+    // Message paragraphs
+    const paragraphOne = createMessageParagraph("Merci pour");
+    const paragraphTwo = createMessageParagraph("votre inscription");
+
+    // Target the modal content container
+    const mainContent = document.querySelector('.content');
+
+    // Create a div for the message container
+    const messageContainer = document.createElement("div");
+    messageContainer.classList.add("message-container");
+    messageContainer.style.margin = "252px auto";
+    // Appends the paragraphs to the message container
+    messageContainer.appendChild(paragraphOne);
+    messageContainer.appendChild(paragraphTwo);
+
+    // Appends the message container to the content
+    mainContent.appendChild(messageContainer);
+
+    // Create the new Fermer Button
+    const fermerBtn = document.createElement("button");
+    fermerBtn.className = "btn-submit fermer-btn";
+    fermerBtn.innerText = "Fermer";
+
+    // Center the button using Flexbox
+    fermerBtn.style.display = "block";
+    fermerBtn.style.margin = "0 auto 18px auto";
+
+    // Appends the button to the container
+    mainContent.appendChild(fermerBtn);
+
+    // Add a click event listener to the Fermer button
+    fermerBtn.addEventListener("click", function () {
+        closeModal();
+    });
+}
+
