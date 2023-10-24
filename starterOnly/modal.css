@@ -3,6 +3,7 @@
   --font-slab: var(--font-default);
   --modal-duration: 0.8s;
 }
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -35,10 +36,18 @@ img {
   margin: 3.5%;
 }
 .header-logo {
-    float: left;
+  float: left;
 }
+.header-logo img {
+  width: 33vw;
+  min-width: 103px;
+  max-width: 277px;
+}
+
+/* ////////////////I've created the .header-logo img/////////////////////////// */
+
 .main-navbar {
-    float: right;
+  float: right;
 }
 .topnav a {
   float: left;
@@ -69,7 +78,9 @@ img {
 }
 
 @media screen and (max-width: 768px) {
-  .topnav a {display: none;}
+  .topnav a {
+    display: none;
+  }
   .topnav a.icon {
     float: right;
     display: block;
@@ -77,7 +88,9 @@ img {
 }
 
 @media screen and (max-width: 768px) {
-  .topnav.responsive {position: relative;}
+  .topnav.responsive {
+    position: relative;
+  }
   .topnav.responsive .icon {
     position: absolute;
     right: 0;
@@ -90,16 +103,16 @@ img {
   }
 }
 
-
-
- @media screen and (max-width: 540px) {
-  .topnav a {display: none;}
+@media screen and (max-width: 540px) {
+  .topnav a {
+    display: none;
+  }
   .topnav a.icon {
     float: right;
     display: block;
     margin-top: -15px;
   }
-} 
+}
 
 main {
   font-size: 130%;
@@ -111,8 +124,6 @@ main {
   margin: 1px 20px 15px;
   border-radius: 2rem;
   text-align: justify;
-
-
 }
 
 .modal-btn {
@@ -195,6 +206,13 @@ label {
   display: inline-block;
   margin-bottom: 11px;
 }
+@media screen and (max-width: 768px) {
+  label {
+    font-size: 0.844rem;
+    font-weight: 400;
+  }
+}
+/* /////////////////////// added media query font - size */
 input {
   padding: 8px;
   border: 0.8px solid #ccc;
@@ -227,12 +245,23 @@ input {
   border: 2px solid #e54858;
 }
 
+/* //////////////////////////TO ELIMINATE THE PLACE HOLDER OF DATE FIELD////////////////// */
+#birthdate:not(:focus)::-webkit-calendar-picker-indicator {
+  display: none;
+}
+#birthdate:not(:focus):in-range::-webkit-datetime-edit-year-field,
+#birthdate:not(:focus):in-range::-webkit-datetime-edit-month-field,
+#birthdate:not(:focus):in-range::-webkit-datetime-edit-day-field,
+#birthdate:not(:focus):in-range::-webkit-datetime-edit-text {
+  color: transparent;
+}
+/* /////////////////////////////////////////////////// */
+
 /* input[data-error]::after {
     content: attr(data-error);
     font-size: 0.4em;
     color: red;
 } */
-
 
 .checkbox-label,
 .checkbox2-label {
@@ -241,12 +270,27 @@ input {
   font-size: 12px;
   font-weight: normal;
 }
+
+@media screen and (max-width: 768px) {
+  .checkbox-label,
+  .checkbox2-label {
+    margin-left: 29px;
+    text-align: left;
+  }
+  .checkbox-label .checkbox-icon,
+  .checkbox2-label .checkbox-icon {
+    left: -25px;
+  }
+}
+/* //////////////////// aded media query for checkbox */
+
 .checkbox-label .checkbox-icon,
 .checkbox2-label .checkbox-icon {
   display: block;
   width: 20px;
   height: 20px;
-  border: 2px solid #279e7a;
+  border: 2px solid;
+  /* /////////////////////NO Border color///////////////////////////// */
   border-radius: 50%;
   text-indent: 29px;
   white-space: nowrap;
@@ -278,6 +322,12 @@ input {
 .checkbox-input:checked + .checkbox2-label .checkbox-icon::after {
   opacity: 1;
 }
+
+.checkbox-input:checked + .checkbox-label .checkbox-icon {
+  border-color: #279e7a;
+}
+/* Change border color to #279e7a ///////////////////////////////////*/
+
 .checkbox-input:checked + .checkbox2-label .checkbox-icon {
   background: #279e7a;
 }
@@ -298,6 +348,7 @@ input {
   left: 21%;
   top: 19%;
 }
+
 .close {
   position: absolute;
   right: 15px;
@@ -406,8 +457,20 @@ input {
   font-weight: normal;
   font-size: 16px;
 }
+@media screen and (max-width: 768px) {
+  .text-label {
+    font-size: 0.844rem;
+    font-weight: 400;
+  }
+  .gameOn-label {
+    display: none;
+  }
+}
+/* ////////////////////// added media query for text-label + new created span (gameOn-label) */
+
 .hero-section {
-  min-height: 93vh;
+  max-height: 93vh;
+  /*//////////////////max-heigh instead of min-height///////////////////////////////*/
   border-radius: 10px;
   display: grid;
   grid-template-columns: repeat(12, 1fr);
@@ -447,6 +510,8 @@ input {
   font-weight: normal;
   margin-top: 57px;
   padding: 0;
+  font-size: 1.5rem;
+  /* ///////////////i've added font size////////////////////////////////// */
 }
 .btn-signup {
   outline: none;
@@ -488,7 +553,10 @@ footer {
   .hero-content {
     background: #fff;
     color: #000;
-    padding: 20px;
+    padding: 0;
+    /* /////////////////padding 0 instead o 20px */
+    min-width: auto;
+    /* ///////////////////////////////////I've added MIN WIDTH  auto*/
   }
   .hero-content::after {
     content: unset;
@@ -497,12 +565,16 @@ footer {
     display: none;
   }
   .hero-headline {
-    font-size: 4.5rem;
+    font-size: 2.5rem;
+    /* ///////////////////////////////2.5rem instead of 4.5rem */
     white-space: normal;
   }
   .hero-text {
-    width: unset;
-    font-size: 1.5rem;
+    /* width: unset; */
+    width: 100%;
+    font-size: 0.813rem;
+    margin-top: 17px;
+    /* //////////////fontsize 0.813rem instead of 1.5rem */
   }
   .hero-img img {
     border-radius: 10px;
@@ -528,4 +600,3 @@ footer {
     opacity: 1;
   }
 }
-
