@@ -141,8 +141,7 @@ function validateBirthday(event) {
         // Check additional criteria for a valid birthday (e.g., not in the future)
         const today = new Date();
         if (date > today) {
-            formDataDiv.setAttribute("data-error", "La date de naissance ne peut pas être dans le futur.");
-            formDataDiv.setAttribute("data-error-visible", "true");
+            createErrorMessage(input,"La date de naissance ne peut pas être dans le futur.")
         } else {
             clearErrorMessage(input);
         }
