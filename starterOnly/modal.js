@@ -1,3 +1,4 @@
+// Fonction pour basculer le menu de navigation pour les écrans plus petits
 function editNav() {
     var x = document.getElementById("myTopnav");
     if (x.className === "topnav") {
@@ -23,7 +24,7 @@ const submitButton = document.querySelector('.btn-submit');
 
 
 
-// Error Messages
+// Messages d'erreur
 const message = {
     fname: "Veuillez entrer 2 caractères ou plus pour le champ du prenom.",
     lname: "Veuillez entrer 2 caractères ou plus pour le champ du nom.",
@@ -35,57 +36,56 @@ const message = {
 };
 
 
-//////////////////////   EVENTS  //////////////////////////////
+//   EVENTS
 
-// launch modal event
+// Événement pour lancer le formulaire modal
 modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
 
-// close modal event
+// Événement pour fermer le formulaire modal
 closeForm.addEventListener("click", closeModal);
 
-// event listener for first name
+// Écouteur d'événement pour le champ du prénom
 firstName.addEventListener("input", validateName);
 
-//event listener for last name
+// Écouteur d'événement pour le champ du nom de famille
 lastName.addEventListener("input", validateName);
 
-// event listener for email
+// Écouteur d'événement pour le champ de l'adresse e-mail
 email.addEventListener("input", validateEmail);
 
-// event listener for Birthday
+// Écouteur d'événement pour la date de naissance
 birthdate.addEventListener("input", validateBirthday);
 
-// event listener for Tournaments
+// Écouteur d'événement pour le nombre de tournois
 quantity.addEventListener("input", validateTournaments);
 
-// event listener for Conditions
+// Écouteur d'événement pour la case à cocher des conditions
 checkbox1.addEventListener("change", validateConditions);
 
-// event listener for Submit button
+// Écouteur d'événement pour le bouton Submit 
 submitButton.addEventListener("click", validateSubmit);
 
 
-//////////////////////   FUNCTIONS ///////////////////////////
+//   FUNCTIONS
 
-// launch modal form
+// Fonction pour lancer le formulaire modal
 function launchModal() {
     modalbg.style.display = "block";
 }
 
-// close modal form
+// Fonction pour fermer le formulaire modal
 function closeModal() {
     modalbg.style.display = "none";
 }
 
-
-// Function to create error messages
+// Fonction pour créer des messages d'erreur
 function createErrorMessage(input, message) {
     const formDataDiv = input.closest(".formData");
     formDataDiv.setAttribute("data-error", message);
     formDataDiv.setAttribute("data-error-visible", "true");
 }
 
-// Function to clear error messages
+// Fonction pour effacer les messages d'erreur
 function clearErrorMessage(input) {
     const formDataDiv = input.closest(".formData");
     formDataDiv.removeAttribute("data-error");
@@ -93,7 +93,7 @@ function clearErrorMessage(input) {
 }
 
 
-// function to check if the name is valid 
+// Fonction pour valider le champ du prénom et du nom de famille
 function validateName(event) {
     const regexName = /^[A-Za-z-]{2,}$/;
     const input = event.target;
@@ -115,7 +115,7 @@ function validateName(event) {
 }
 
 
-// function to check if the email adress is valid
+// Fonction pour valider le champ de l'adresse e-mail
 function validateEmail(event) {
     const regexEmail = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
     const input = event.target;
@@ -127,18 +127,17 @@ function validateEmail(event) {
 }
 
 
-//function to validate the Birthday date
+// Fonction pour valider la date de naissance
 function validateBirthday(event) {
     const input = event.target;
     const formDataDiv = input.closest(".formData");
     const dateStr = input.value;
 
-    // Parse the date
+    // Parse date
     const date = new Date(dateStr);
     if (isNaN(date.getTime())) {
         createErrorMessage(input, message.birthdate);
     } else {
-        // Check additional criteria for a valid birthday (e.g., not in the future)
         const today = new Date();
         if (date > today) {
             createErrorMessage(input,"La date de naissance ne peut pas être dans le futur.")
@@ -149,7 +148,7 @@ function validateBirthday(event) {
 }
 
 
-// function to check if the number of participation is valid
+// Fonction pour valider les lieux (boutons radio)
 function validateTournaments(event) {
     const regexQuantity = /^([0-9]{1,})$/;
     const input = event.target;
@@ -161,7 +160,7 @@ function validateTournaments(event) {
 }
 
 
-// Function to validate Locations
+// Function to validate the selected location
 function validateLocations() {
     const isAnyRadioChecked = [...radioButtons].some((radioButton) => radioButton.checked);
 
@@ -173,7 +172,7 @@ function validateLocations() {
 }
 
 
-// Function to validate if the conditions checkbox is checked
+// Fonction pour valider si la case à cocher des conditions est cochée
 function validateConditions(event) {
     const input = event.target;
     if (checkbox1.checked === false) {
@@ -184,11 +183,11 @@ function validateConditions(event) {
 }
 
 
-// Function that checks if the form is valid 
+// Fonction pour valider le formulaire complet
 function validateSubmit(event) {
     event.preventDefault();
 
-    // Validate each form field
+   // Valider chaque champ du formulaire
     validateName({
         target: firstName
     });
@@ -209,7 +208,7 @@ function validateSubmit(event) {
         target: checkbox1
     });
 
-    // Check if any errors are still visible
+   // Vérifier si des erreurs sont encore visibles
     let visibleErrors = document.querySelectorAll('[data-error]');
 
     if (visibleErrors.length === 0) {
@@ -220,7 +219,7 @@ function validateSubmit(event) {
 }
 
 
-// Function to create a paragraph
+// Fonction pour créer un paragraphe de message
 function createMessageParagraph(text) {
     const paragraph = document.createElement("p");
     paragraph.style.fontSize = "36px";
@@ -231,39 +230,39 @@ function createMessageParagraph(text) {
 }
 
 
-// Function that displays the form validation message
+// Fonction qui affiche le message de validation du formulaire
 function validMessage() {
-    // Message paragraphs
+   // Paragraphes de message
     const paragraphOne = createMessageParagraph("Merci pour");
     const paragraphTwo = createMessageParagraph("votre inscription");
 
-    // Target the modal content container
+     // Cibler le conteneur du contenu modal
     const mainContent = document.querySelector('.content');
 
-    // Create a div for the message container
+   // Créer un div pour le conteneur du message
     const messageContainer = document.createElement("div");
     messageContainer.classList.add("message-container");
-    messageContainer.style.margin = "252px auto";
-    // Appends the paragraphs to the message container
+
+    // Ajouter les paragraphes au conteneur du message
     messageContainer.appendChild(paragraphOne);
     messageContainer.appendChild(paragraphTwo);
 
-    // Appends the message container to the content
+    // Ajouter le conteneur du message au contenu
     mainContent.appendChild(messageContainer);
 
-    // Create the new Fermer Button
+    // Créer le nouveau bouton "Fermer"
     const fermerBtn = document.createElement("button");
     fermerBtn.className = "btn-submit fermer-btn";
     fermerBtn.innerText = "Fermer";
 
-    // Center the button using Flexbox
+    // Centrer le bouton
     fermerBtn.style.display = "block";
     fermerBtn.style.margin = "0 auto 18px auto";
 
-    // Appends the button to the container
+    // Ajouter le bouton au conteneur
     mainContent.appendChild(fermerBtn);
 
-    // Add a click event listener to the Fermer button
+   // Ajouter un écouteur d'événement de clic au bouton "Fermer" pour fermer le modal
     fermerBtn.addEventListener("click", function () {
         closeModal();
     });

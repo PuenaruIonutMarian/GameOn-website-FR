@@ -15,7 +15,7 @@ body {
   margin: 0;
   display: flex;
   flex-direction: column;
-  background-image: url("background.png");
+  /* background-image: url("background.png"); */
   font-family: var(--font-default);
   font-size: 18px;
   max-width: 1300px;
@@ -40,7 +40,7 @@ img {
   line-height: 50px;
 }
 
-/* /////////////// added line-height 50px */
+/* Ceci permet au logo d'avoir des propriétés réactives */
 .header-logo img {
   width: 33vw;
   min-width: 103px;
@@ -49,7 +49,6 @@ img {
   vertical-align: middle;
   margin: auto 0;
 }
-/* ////////////////I've created the .header-logo img/////////////////////////// */
 
 .main-navbar {
   float: right;
@@ -58,7 +57,6 @@ img {
   float: left;
   display: block;
   color: #ff0000;
-  /* /////////////////// changed the color to red from black */
   text-align: center;
   padding: 12px 12px;
   margin: 5px;
@@ -110,19 +108,15 @@ img {
   .topnav {
     z-index: 1;
   }
-  /* ////////////////////////////////TOP NAV */
 }
 
 @media screen and (max-width: 540px) {
-  /* /////////////////////// max-width 800ox instead of 540px */
   .topnav a {
     display: none;
   }
   .topnav a.icon {
     float: right;
     display: block;
-    /* margin-top: -15px; */
-    /* ////// eliminate margin top -15px so that the menu can be seen */
   }
 }
 
@@ -191,13 +185,14 @@ main {
   overflow: auto;
   background-color: rgba(26, 39, 156, 0.4);
 }
+
+/* Media query qui supprime la couleur de fond du formulaire (bleu foncé) lorsque l'écran est de petite taille et laisse de la place pour la barre de navigation */
 @media screen and (max-width: 768px) {
   .bground {
     background-color: transparent;
     top: 50px;
   }
 }
-/* ///////////////////////////////MEDIA QUERY/////////////////////////// */
 
 .content {
   margin: 5% auto;
@@ -220,20 +215,20 @@ main {
 
 label {
   font-family: var(--font-default);
-  /* font-size: 17px; */
   font-size: 0.875rem;
-  /* /////////////////////Font size 14px instead of 17px */
   font-weight: normal;
   display: inline-block;
   margin-bottom: 11px;
 }
+
+/* Media query pour changer la taille de la police des labels lorsqu'on est sur un téléphone mobile */
 @media screen and (max-width: 768px) {
   label {
     font-size: 0.844rem;
     font-weight: 400;
   }
 }
-/* /////////////////////// added media query font - size */
+
 input {
   padding: 8px;
   border: 0.8px solid #ccc;
@@ -249,12 +244,12 @@ input {
   height: 48px;
 }
 
+/* Media query pour redimensionner la hauteur des champs de texte sur un téléphone mobile */
 @media screen and (max-width: 768px) {
   .text-control {
     height: 35px;
   }
 }
-/* modified the size of inputs when on mobile phone///////// */
 
 .formData[data-error]::after {
   content: attr(data-error);
@@ -275,17 +270,19 @@ input {
   border: 2px solid #e54858;
 }
 
-/* //////////////////////////TO ELIMINATE THE PLACE HOLDER OF DATE FIELD////////////////// */
-#birthdate:not(:focus)::-webkit-calendar-picker-indicator {
+/* Si le champ de date de naissance n'est pas activé, le texte de l'espace réservé de la date (placeholder) n'est pas visible */
+.formData input[type="date"]:not(:focus)::-webkit-calendar-picker-indicator {
   display: none;
 }
-#birthdate:not(:focus):in-range::-webkit-datetime-edit-year-field,
-#birthdate:not(:focus):in-range::-webkit-datetime-edit-month-field,
-#birthdate:not(:focus):in-range::-webkit-datetime-edit-day-field,
-#birthdate:not(:focus):in-range::-webkit-datetime-edit-text {
+.formData
+  input[type="date"]:not(:focus):in-range::-webkit-datetime-edit-year-field,
+.formData
+  input[type="date"]:not(:focus):in-range::-webkit-datetime-edit-month-field,
+.formData
+  input[type="date"]:not(:focus):in-range::-webkit-datetime-edit-day-field,
+.formData input[type="date"]:not(:focus):in-range::-webkit-datetime-edit-text {
   color: transparent;
 }
-/* /////////////////////////////////////////////////// */
 
 /* input[data-error]::after {
     content: attr(data-error);
@@ -301,6 +298,7 @@ input {
   font-weight: normal;
 }
 
+/* Media query pour aider à positionner les cases à cocher sur un téléphone */
 @media screen and (max-width: 768px) {
   .checkbox-label,
   .checkbox2-label {
@@ -312,7 +310,6 @@ input {
     left: -25px;
   }
 }
-/* //////////////////// aded media query for checkbox */
 
 .checkbox-label .checkbox-icon,
 .checkbox2-label .checkbox-icon {
@@ -320,7 +317,6 @@ input {
   width: 20px;
   height: 20px;
   border: 2px solid;
-  /* /////////////////////NO Border color///////////////////////////// */
   border-radius: 50%;
   text-indent: 29px;
   white-space: nowrap;
@@ -353,10 +349,10 @@ input {
   opacity: 1;
 }
 
+/* Lorsque la case à cocher est cochée, la couleur de la bordure change en conséquence */
 .checkbox-input:checked + .checkbox-label .checkbox-icon {
   border-color: #279e7a;
 }
-/* Change border color to #279e7a ///////////////////////////////////*/
 
 .checkbox-input:checked + .checkbox2-label .checkbox-icon {
   background: #279e7a;
@@ -493,9 +489,9 @@ input {
   font-weight: normal;
   font-size: 0.875rem;
   margin-left: -5px;
-
-  /* /////////////// aded margin to be correctly aligned///////// */
 }
+
+/* Media query pour le text-label et le mot gameOn */
 @media screen and (max-width: 768px) {
   .text-label {
     font-size: 0.844rem;
@@ -505,11 +501,9 @@ input {
     display: none;
   }
 }
-/* ////////////////////// added media query for text-label + new created span (gameOn-label) */
 
 .hero-section {
   max-height: 93vh;
-  /*//////////////////max-heigh instead of min-height///////////////////////////////*/
   border-radius: 10px;
   display: grid;
   grid-template-columns: repeat(12, 1fr);
@@ -542,7 +536,6 @@ input {
 .hero-headline {
   font-size: 6rem;
   font-weight: normal;
-  /* white-space: nowrap; */
   width: 810px;
 }
 @media screen and (max-width: 960px) {
@@ -556,6 +549,7 @@ input {
     font-size: 4.9rem;
   }
 }
+/* media query to hold on the title */
 @media screen and (max-width: 800px) {
   .hero-headline {
     width: auto;
@@ -564,7 +558,6 @@ input {
     margin-left: 0;
   }
 }
-/* /////////////// added media query to hold on the title */
 
 .hero-text {
   width: 146%;
@@ -572,7 +565,6 @@ input {
   margin-top: 57px;
   padding: 0;
   font-size: 1.5rem;
-  /* ///////////////i've added font size////////////////////////////////// */
 }
 .btn-signup {
   outline: none;
@@ -615,9 +607,7 @@ footer {
     background: #fff;
     color: #000;
     padding: 0;
-    /* /////////////////padding 0 instead o 20px */
     min-width: auto;
-    /* ///////////////////////////////////I've added MIN WIDTH  auto*/
   }
   .hero-content::after {
     content: unset;
@@ -627,15 +617,12 @@ footer {
   }
   .hero-headline {
     font-size: 2.5rem;
-    /* ///////////////////////////////2.5rem instead of 4.5rem */
     white-space: normal;
   }
   .hero-text {
-    /* width: unset; */
     width: 100%;
     font-size: 0.813rem;
     margin-top: 17px;
-    /* //////////////fontsize 0.813rem instead of 1.5rem */
   }
   .hero-img img {
     border-radius: 10px;
@@ -659,5 +646,14 @@ footer {
   }
   to {
     opacity: 1;
+  }
+}
+
+/* margin pour le message de validation */
+.message-container {
+  margin: 252px auto;
+  /* Media Query pour adapter le message et le bouton à l'écran */
+  @media screen and (max-width: 768px) {
+    margin: 212px auto;
   }
 }
