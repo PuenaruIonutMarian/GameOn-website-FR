@@ -652,8 +652,11 @@ footer {
 /* margin pour le message de validation */
 .message-container {
   margin: 252px auto;
-  /* Media Query pour adapter le message et le bouton à l'écran */
-  @media screen and (max-width: 768px) {
+}
+
+/* Media Query pour adapter le message et le bouton à l'écran */
+@media screen and (max-width: 768px) {
+  .message-container {
     margin: 212px auto;
   }
 }
